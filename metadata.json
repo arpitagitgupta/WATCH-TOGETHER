@@ -1,0 +1,6 @@
+{
+  "name": "WatchTogether",
+  "description": "Watch movies and videos together with friends in perfect, real-time synchronization. Custom cinematic player, WebSockets real-time chat, and LED ambient glow.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
