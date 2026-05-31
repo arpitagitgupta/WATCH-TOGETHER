@@ -21,6 +21,11 @@ import {
 import { Friend, RoomState } from '../types';
 import { PRESET_AVATARS, PRESET_VIDEOS } from '../data';
 
+const getApiUrl = (slug: string) => {
+  const backendBase = import.meta.env.VITE_API_URL || '';
+  return `${backendBase}${slug}`;
+};
+
 interface LobbyProps {
   userId: string;
   username: string;
@@ -65,7 +70,7 @@ export default function MainLobby({
   const loadPublicRooms = async () => {
     setLoadingLobbies(true);
     try {
-      const resp = await fetch('/api/rooms');
+      const resp = await fetch(getApiUrl('/api/rooms'));
       if (resp.ok) {
         const data = await resp.json();
         setActiveLobbies(data);
@@ -95,7 +100,7 @@ export default function MainLobby({
   const handleQuickJoin = async (id: string) => {
     try {
       // Check room eligibility
-      const r = await fetch(`/api/rooms/${id.toUpperCase()}`);
+      const r = await fetch(getApiUrl(`/api/rooms/${id.toUpperCase()}`));
       if (r.ok) {
         const details = await r.json();
         if (details.isPasswordProtected) {
@@ -119,7 +124,7 @@ export default function MainLobby({
     setJoinError('');
 
     try {
-      const r = await fetch(`/api/rooms/${code}`);
+      const r = await fetch(getApiUrl(`/api/rooms/${code}`));
       if (!r.ok) {
         setJoinError("Room not found.");
         return;
